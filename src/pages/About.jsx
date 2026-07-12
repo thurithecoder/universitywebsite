@@ -1,37 +1,50 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { programs, universityInfo } from '../data/programs';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faBriefcase,
+    faGavel,
+    faGear,
+    faGlobe,
+    faHeartPulse,
+    faLaptopCode,
+    faLightbulb,
+    faPalette,
+    faShieldHalved,
+    faStar,
+} from '@fortawesome/free-solid-svg-icons';
+import { universityInfo } from '../data/programs';
+import back2 from '../assets/back2.webp';
+import mission1 from '../assets/mission1.jpg';
+import vision1 from '../assets/vision1.jpg';
+import eng from '../assets/eng.jpg';
+import buss from '../assets/buss.jpg';
+import ai from '../assets/ai.jpg';
+import doctors from '../assets/doctors.webp';
+import law from '../assets/law.jpg';
+import art from '../assets/art.jpg';
 
 export default function About() {
 
-    const images = [
-        "../../src/assets/mission1.jpg",
-        "../../src/assets/vision1.jpg",
-
-    ];
-    const facultyImgaes = [
-        "../../src/assets/eng.jpg",
-        "../../src/assets/buss.jpg",
-        "../../src/assets/ai.jpg",
-        "../../src/assets/doctors.webp",
-        "../../src/assets/law.jpg",
-        "../../src/assets/art.jpg",
-    ]
+    const images = [mission1, vision1];
+    const facultyImgaes = [eng, buss, ai, doctors, law, art];
+    const valueIcons = [faStar, faShieldHalved, faGlobe, faLightbulb];
+    const facultyIcons = [faGear, faBriefcase, faLaptopCode, faHeartPulse, faGavel, faPalette];
     return (
         <div className="bg-white text-gray-900">
 
 
-            <section className=" text-white h-96 mt-20 ">
-                <div className="h-96 mx-auto px-4 text-center" style={{
-                    backgroundImage: "url('../../src/assets/back2.webp')",
+            <section className="mt-20 text-white">
+                <div className="mx-auto flex min-h-[320px] flex-col items-center justify-center px-4 text-center md:min-h-96" style={{
+                    backgroundImage: `url(${back2})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     // backgroundAttachment: "fixed",
                 }}>
                     <h1
-                        className=" text-4xl md:text-5xl font-black my-4 pt-28"
+                        className="my-4 text-4xl font-black md:text-5xl"
                     >
                         About {universityInfo.shortName}
                     </h1>
@@ -43,8 +56,8 @@ export default function About() {
                     </p>
                 </div>
             </section>
-            <section className="py-24">
-                <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center max-w-6xl">
+            <section className="py-14">
+                <div className="container mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-2 lg:gap-12">
                     <div>
                         <h2 className="text-3xl font-black mb-4">University Overview</h2>
                         <div className="w-14 h-1 bg-[#de2203] mb-6"></div>
@@ -63,17 +76,14 @@ export default function About() {
                     </div>
 
                     {/* STATS CARDS */}
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-5">
                         {[
                             { label: "Students", value: universityInfo.stats.students },
                             { label: "Programs", value: universityInfo.stats.programs },
                             { label: "Countries", value: universityInfo.stats.countries },
                             { label: "Alumni", value: universityInfo.stats.alumni },
-                        ].map((s, i) => (
-                            <div
-
-                                className="p-6 rounded-2xl bg-white border shadow-sm text-center hover:shadow-xl transition"
-                            >
+                        ].map((s) => (
+                            <div key={s.label} className="p-5 rounded-xl bg-white border shadow-sm text-center hover:bg-red-50/40 hover:shadow-lg transition">
                                 <div className="text-2xl font-black text-[#de2203]">
                                     {s.value}
                                 </div>
@@ -86,14 +96,14 @@ export default function About() {
             </section>
 
             {/* MISSION / VISION */}
-            <section className="bg-gray-50 py-24">
-                <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 max-w-6xl">
+            <section className="bg-gray-50 py-14">
+                <div className="container mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-2 lg:gap-10">
 
                     {[
                         { title: "Mission", text: universityInfo.mission },
                         { title: "Vision", text: universityInfo.vision },
                     ].map((item, i) => (
-                        <div className="bg-white p-0 rounded-3xl shadow-sm border hover:shadow-2xl transition">
+                        <div key={item.title} className="bg-white p-0 rounded-2xl shadow-sm border hover:bg-red-50/30 hover:shadow-xl transition">
                             <img src={images[i]} alt={item.title} className="w-full h-40 object-cover rounded-t-2xl mb-3 " />
                             <h3 className="text-2xl font-bold mb-4 text-[#de2203] mx-4">
                                 {item.title}
@@ -109,18 +119,21 @@ export default function About() {
             </section>
 
             {/* VALUES */}
-            <section className="py-24">
-                <div className="text-center mb-12">
+            <section className="py-14">
+                <div className="text-center mb-8">
                     <h2 className="text-3xl font-black">Core Values</h2>
                     <div className="w-14 h-1 bg-[#de2203] mx-auto mt-3"></div>
                 </div>
 
-                <div className="container mx-auto px-4 grid md:grid-cols-4 gap-6 max-w-6xl">
+                <div className="container mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4">
                     {universityInfo.values.map((v, i) => (
                         <div
-                            className="p-6 rounded-2xl border bg-white text-center shadow-sm hover:shadow-xl transition"
+                            key={v.title}
+                            className="p-5 rounded-xl border bg-white text-center shadow-sm hover:bg-red-50/40 hover:shadow-lg transition"
                         >
-                            <div className="text-4xl mb-3">{v.icon}</div>
+                            <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-red-50 text-[#de2203]">
+                                <FontAwesomeIcon icon={valueIcons[i]} />
+                            </div>
                             <h3 className="font-bold mb-2">{v.title}</h3>
                             <p className="text-sm text-gray-600">{v.desc}</p>
                         </div>
@@ -129,13 +142,13 @@ export default function About() {
             </section>
 
             {/* Faculty */}
-            <section className="bg-gray-50 py-24">
-                <div className="text-center mb-12">
+            <section className="bg-gray-50 py-14">
+                <div className="text-center mb-8">
                     <h2 className="text-3xl font-black">Faculty</h2>
                     <div className="w-14 h-1 bg-[#de2203] mx-auto mt-3"></div>
                 </div>
 
-                <div className="container mx-auto px-4 grid md:grid-cols-3 gap-6 max-w-6xl">
+                <div className="container mx-auto grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:grid-cols-3">
                     {universityInfo.faculties.map((l, i) => (
                         <motion.div
                             key={l.name}
@@ -143,14 +156,17 @@ export default function About() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             whileHover={{ y: -10 }}
                             transition={{ delay: 0 }}
-                            className="bg-white p-6 rounded-2xl text-center border shadow-sm hover:shadow-2xl transition"
+                            className="bg-white p-5 rounded-xl text-center border shadow-sm hover:bg-red-50/30 hover:shadow-xl transition"
                         >
 
-                            <div className="w-full h-52 mb-4"><img className="w-full h-full rounded-md" src={facultyImgaes[i]}/></div>
+                            <div className="mb-4 h-44 w-full sm:h-52"><img className="h-full w-full rounded-md object-cover" src={facultyImgaes[i]} alt={l.name}/></div>
+                            <div className="mx-auto -mt-8 mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#de2203] shadow-md">
+                                <FontAwesomeIcon icon={facultyIcons[i]} />
+                            </div>
                             <h3 className="font-bold text-sm">{l.name}</h3>
                             <p className="text-xs text-gray-500 mt-1">{l.programs} programs</p>
                             <Link to={`/programs?category=${l.name.replace('Faculty of ', '')}`}
-                                className="text-[#CC0000] text-xs font-semibold no-underline hover:underline">View Programs →</Link>
+                                className="text-[#CC0000] text-xs font-semibold no-underline hover:underline">View Programs -&gt;</Link>
                         </motion.div>
                     ))}
                 </div>

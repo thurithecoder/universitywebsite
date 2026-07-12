@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import AiChatbot from './components/AiChatbot';
+import ScrollToTop from './components/ScrollToTop';
 
 
 // Pages
@@ -15,6 +17,7 @@ import Notfoundpage from './pages/NotFound';
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
@@ -27,6 +30,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <AiChatbot />
     </BrowserRouter>
   );
 }

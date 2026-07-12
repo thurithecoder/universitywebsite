@@ -1,7 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate, Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../assets/logo.webp';
 
 
 export default function Navbar() {
@@ -28,9 +30,9 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-20">
                     <Link to="/" className="flex items-center">
                         <img
-                            src="../../../src/assets/logo.webp"
+                            src={logo}
                             alt="University Logo"
-                            className="h-12 w-auto"
+                            className="h-10 w-auto sm:h-12"
                         />
                     </Link>
                     <div className="hidden lg:flex items-center gap-8 ">
@@ -74,11 +76,11 @@ export default function Navbar() {
                             <form onSubmit={handleSearch} className="flex">
                                 <input
                                     type="text" value={search} onChange={e => setSearch(e.target.value)}
-                                    placeholder="Search programs…"
+                                    placeholder="Search programs..."
                                     className="w-44 text-sm px-3 py-1.5 border border-gray-200 rounded-l-lg outline-none focus:border-[#CC0000] transition-colors"
                                 />
                                 <button type="submit" className="px-3 py-1.5 bg-[#CC0000] text-white text-sm rounded-r-lg hover:bg-[#990000] transition-colors">
-                                    <i className="bi bi-search" />
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
                                 </button>
                             </form>
                             <Link to="/contact"
@@ -89,7 +91,7 @@ export default function Navbar() {
                     </div>
                     <button onClick={() => setMenuOpen(!menuOpen)}
                         className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                        <i className={`bi ${menuOpen ? 'bi-x-lg' : 'bi-list'} text-xl text-[#CC0000]`} />
+                        <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} className="text-xl text-[#CC0000]" />
                     </button>
                 </div>
                 {menuOpen && (
@@ -106,11 +108,11 @@ export default function Navbar() {
                         <form onSubmit={handleSearch} className="flex">
                             <input
                                 type="text" value={search} onChange={e => setSearch(e.target.value)}
-                                placeholder="Search programs…"
+                                placeholder="Search programs..."
                                 className="flex-1 text-sm px-3 py-1.5 border border-gray-200 rounded-l-lg outline-none focus:border-[#CC0000] transition-colors"
                             />
                             <button type="submit" className="px-3 py-1.5 bg-[#CC0000] text-white text-sm rounded-r-lg hover:bg-[#990000] transition-colors">
-                                <i className="bi bi-search" />
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </button>
                         </form>
                         <Link to="/contact" onClick={() => setMenuOpen(false)}
@@ -123,3 +125,4 @@ export default function Navbar() {
         </nav>
     );
 }
+

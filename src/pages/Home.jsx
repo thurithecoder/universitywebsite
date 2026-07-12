@@ -1,38 +1,50 @@
 import { programs, universityInfo } from '../data/programs';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faArrowRight,
+    faAward,
+    faGraduationCap,
+    faStar,
+} from '@fortawesome/free-solid-svg-icons';
+import ProgramCard from '../components/ProgramCard';
+import { findPrograms } from '../utils/ai';
+import pic1 from '../assets/pic1.jpg';
+import back2 from '../assets/back2.webp';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 
 function getRecommendations(interest) {
-    if (!interest.trim()) return [];
-    const lower = interest.toLowerCase();
-    return programs.filter(p =>
-        p.keywords.some(kw => lower.includes(kw) || kw.includes(lower)) ||
-        p.name.toLowerCase().includes(lower) ||
-        p.category.toLowerCase().includes(lower)
-    );
+    return findPrograms(interest);
 }
 function Homepage() {
 
     const [interest, setInterest] = useState('');
     const [recs, setRecs] = useState([]);
     const [showRecs, setShowRecs] = useState(false);
+    const [visibleCards, setVisibleCards] = useState(2);
+    const featuredPrograms = programs.slice(0, 3);
 
     const handleRecommend = (e) => {
         e.preventDefault();
         setRecs(getRecommendations(interest));
         setShowRecs(true);
     };
-    const images = [
-        "../../src/assets/pic1.jpg",
-        "../../src/assets/pic1.jpg",
-        "../../src/assets/pic1.jpg",
-        "../../src/assets/pic1.jpg",
-    ];
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const images = [pic1, pic1, pic1, pic1];
+    const [, setCurrentIndex] = useState(0);
     const trackRef = useRef(null);
     const cardRef = useRef(null);
+
+    useEffect(() => {
+        const updateVisibleCards = () => {
+            setVisibleCards(window.matchMedia('(max-width: 768px)').matches ? 1 : 2);
+        };
+
+        updateVisibleCards();
+        window.addEventListener('resize', updateVisibleCards);
+        return () => window.removeEventListener('resize', updateVisibleCards);
+    }, []);
 
     const getSlideWidth = () => {
         if (!cardRef.current) return 0;
@@ -50,9 +62,7 @@ function Homepage() {
             `translateX(-${index * slideWidth}px)`;
     };
 
-    const visibleCards = window.innerWidth <= 768 ? 1 : 2;
-    const maxIndex =
-        universityInfo.testimonials.length - visibleCards;
+    const maxIndex = Math.max(universityInfo.testimonials.length - visibleCards, 0);
 
     const next = () => {
         setCurrentIndex(prev => {
@@ -73,8 +83,8 @@ function Homepage() {
 
     return (
         <>
-            <section className="relative overflow-hidden min-h-screen flex items-center" style={{
-                backgroundImage: "url('../../src/assets/pic1.jpg')",
+            <section className="relative flex min-h-screen items-center overflow-hidden" style={{
+                backgroundImage: `url(${pic1})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center"
             }}>
@@ -85,7 +95,7 @@ function Homepage() {
                         {/* Left */}
                         <div className="col-lg-6">
                             <span className="inline-flex items-center gap-2 text-xs font-medium text-white/80 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full mb-5">
-                                <i className="bi bi-award" /> Ranked Top University Malaysia 2025
+                                <FontAwesomeIcon icon={faAward} /> Ranked Top University Malaysia 2025
                             </span>
                             <h1 className="text-white font-black leading-[1.1] mb-5" style={{ fontSize: 'clamp(2rem,5vw,3.4rem)' }}>
                                 Shape Your Future<br />at <span className="text-yellow-300">Lincoln</span><br />University College
@@ -97,11 +107,11 @@ function Homepage() {
                             <div className="flex flex-wrap gap-3">
                                 <Link to="/programs"
                                     className=" shadowbtn inline-flex items-center gap-2 bg-[#de2203] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#b81b02] transition-all no-underline text-sm shadow-lg">
-                                    <i className="bi bi-mortarboard" /> Explore Programs
+                                    <FontAwesomeIcon icon={faGraduationCap} /> Explore Programs
                                 </Link>
                                 <Link to="/contact"
                                     className="inline-flex items-center gap-2 border-2 border-white/40 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-all no-underline text-sm">
-                                    Apply Now <i className="bi bi-arrow-right" />
+                                    Apply Now <FontAwesomeIcon icon={faArrowRight} />
                                 </Link>
                             </div>
 
@@ -111,15 +121,15 @@ function Homepage() {
                             <div className='bg-white rounded-2xl p-6 text-center'>
 
                                 <div className="flex items-center gap-1 mb-1 justify-center">
-                                    <i className="bi bi-stars text-[#de2203] text-sm" />
+                                    <FontAwesomeIcon icon={faStar} className="text-sm text-[#de2203]" />
                                     <span className="text-sm font-semibold text-gray-800">AI Recommender</span>
                                 </div>
-                                <p className="text-[11px] text-gray-400 mb-2">Tell us your interest — we'll suggest programs.</p>
-                                <form onSubmit={handleRecommend} className="flex">
+                                <p className="text-[11px] text-gray-400 mb-2">Tell us your interest - we'll suggest programs.</p>
+                                <form onSubmit={handleRecommend} className="flex flex-col gap-2 sm:flex-row">
                                     <input value={interest} onChange={e => setInterest(e.target.value)} type="text"
-                                        placeholder="e.g. technology, healthcare, finance…"
-                                        className="flex-1 text-sm px-3 py-2.5 border border-gray-200 rounded-l-lg outline-none focus:border-[#de2203] transition-colors" />
-                                    <button type="submit" className="px-3 bg-[#de2203] text-white text-sm rounded-r-lg hover:bg-[#990000] transition-colors whitespace-nowrap">
+                                        placeholder="e.g. technology, healthcare, finance..."
+                                        className="min-w-0 flex-1 rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none transition-colors focus:border-[#de2203] sm:rounded-r-none" />
+                                    <button type="submit" className="whitespace-nowrap rounded-lg bg-[#de2203] px-4 py-2.5 text-sm text-white transition-colors hover:bg-[#990000] sm:rounded-l-none">
                                         Suggest
                                     </button>
                                 </form>
@@ -134,12 +144,12 @@ function Homepage() {
                                                         <span className="text-lg">{p.icon}</span>
                                                         <div className="flex-1 min-w-0">
                                                             <div className="text-xs font-semibold text-gray-800 truncate">{p.name}</div>
-                                                            <div className="text-[10px] text-gray-400">{p.duration} · {p.fees}</div>
+                                                            <div className="text-[10px] text-gray-400">{p.duration} - {p.fees}</div>
                                                         </div>
-                                                        <i className="bi bi-arrow-right text-[#CC0000] text-xs" />
+                                                        <FontAwesomeIcon icon={faArrowRight} className="text-xs text-[#CC0000]" />
                                                     </Link>
                                                 ))}
-                                                {recs.length > 3 && <Link to={`/programs?search=${interest}`} className="text-[11px] text-[#CC0000] font-medium no-underline">View all {recs.length} →</Link>}
+                                                {recs.length > 3 && <Link to={`/programs?search=${interest}`} className="text-[11px] text-[#CC0000] font-medium no-underline">View all {recs.length} -&gt;</Link>}
                                             </>
                                         ) : (
                                             <p className="text-[11px] text-gray-400">No matches for "{interest}". Try: technology, business, law.</p>
@@ -154,6 +164,29 @@ function Homepage() {
                 </div>
 
             </section>
+            <section className="bg-gray-50 py-12">
+                <div className="container mx-auto max-w-6xl px-4">
+                    <div className="mb-7 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                        <div>
+                            <span className="mb-2 inline-block rounded-lg bg-red-50 px-3 py-1.5 text-sm font-semibold text-[#de2203]">
+                                Featured Programs
+                            </span>
+                            <h2 className="text-3xl font-black text-gray-950">Popular Academic Pathways</h2>
+                            <div className="mt-3 h-1 w-14 rounded-full bg-[#de2203]" />
+                        </div>
+                        <Link to="/programs" className="inline-flex items-center gap-2 text-sm font-bold text-[#de2203] no-underline hover:text-[#990000]">
+                            Browse all programs
+                            <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                        </Link>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-3">
+                        {featuredPrograms.map((program) => (
+                            <ProgramCard key={program.id} program={program} />
+                        ))}
+                    </div>
+                </div>
+            </section>
             <section className="bg-white py-24">
 
                 <div className="max-w-4xl mx-auto text-center mb-10 px-6">
@@ -167,12 +200,11 @@ function Homepage() {
                     <div className="w-14 h-1 bg-[#de2203] mx-auto rounded-full"></div>
                 </div>
                 <div
-                    className="relative mx-auto max-w-7xl min-h-[60px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.25)]"
+                    className="relative mx-auto min-h-[60px] max-w-7xl overflow-hidden bg-scroll shadow-[0_30px_80px_rgba(0,0,0,0.25)] md:bg-fixed"
                     style={{
-                        backgroundImage: "url('../../src/assets/back2.webp')",
+                        backgroundImage: `url(${back2})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
-                        backgroundAttachment: "fixed",
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80" />
@@ -225,12 +257,10 @@ function Homepage() {
                     </div>
 
                     <div className="mt-10 text-center">
-                        <button className="group rounded-2xl bg-[#de2203] px-10 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#a30000]">
-                            <Link to="/about">Learn More About Us </Link>
-                            <span className="ml-3 inline-block transition-transform duration-300 group-hover:translate-x-2">
-                                →
-                            </span>
-                        </button>
+                        <Link to="/about" className="group inline-flex items-center rounded-2xl bg-[#de2203] px-10 py-3 font-semibold text-white no-underline transition-all duration-300 hover:scale-105 hover:bg-[#a30000]">
+                            Learn More About Us
+                            <span className="ml-3 inline-block transition-transform duration-300 group-hover:translate-x-2">-&gt;</span>
+                        </Link>
                     </div>
 
                 </div>
@@ -248,7 +278,7 @@ function Homepage() {
                     <div className="space-y-8">
                         {universityInfo.news.map((item, index) => (
 
-                            <div className={`flex flex-col sm:flex-row news-card ${index % 2 !== 0 ? "reverse" : ""}`}>
+                            <div key={item.id} className={`flex flex-col sm:flex-row news-card ${index % 2 !== 0 ? "reverse" : ""}`}>
 
                                 <div className="news-image-wrapper">
                                     <img
@@ -294,8 +324,8 @@ function Homepage() {
                         <h2>What Our Students Say</h2>
 
                         <div className="carousel-controls">
-                            <button onClick={prev}>‹</button>
-                            <button onClick={next}>›</button>
+                            <button onClick={prev} aria-label="Previous testimonial">&lt;</button>
+                            <button onClick={next} aria-label="Next testimonial">&gt;</button>
                         </div>
                     </div>
                     <div className="carousel-track-wrapper">
@@ -352,3 +382,4 @@ function Homepage() {
 
 
 export default Homepage;
+

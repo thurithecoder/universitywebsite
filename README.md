@@ -1,16 +1,76 @@
-# React + Vite
+# Lincoln University College Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite university website built for the internship project requirements.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Responsive red-themed university UI
+- Home, About, Programs, Program Details, Contact, and 404 pages
+- Program search, category filters, and level filters
+- Featured programs and program detail pages
+- Contact form with validation and Google Maps embed
+- FAQ section and local AI FAQ helper
+- Local rule-based AI chatbot
+- AI-style program recommendation and smart search
+- Loading skeletons for program results
+- Reusable components, data-driven program content, and FontAwesome icons
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router
+- Tailwind CSS utility classes
+- Bootstrap grid utilities
+- Framer Motion
+- FontAwesome
+- Oxlint
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run preview
+```
+
+## Project Structure
+
+```text
+src/
+  components/
+  components/layout/
+  data/
+  pages/
+  utils/
+  assets/
+```
+
+## AI Features
+
+The project uses local rule-based AI logic in `src/utils/ai.js`:
+
+- Smart program search
+- Program recommendation
+- AI chatbot answers
+- AI FAQ answer generation
+
+This keeps the demo functional without requiring an external API key.
+
+## Deployment
+
+Build the production app with:
+
+```bash
+npm run build
+```
+
+The generated `dist/` folder can be deployed to Vercel, Netlify, or any static hosting provider.
