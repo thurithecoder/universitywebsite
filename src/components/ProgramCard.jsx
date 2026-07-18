@@ -49,7 +49,7 @@ export default function ProgramCard({ program }) {
 
                     <Link
                         to={`/programs/${program.id}`}
-                        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#de2203] bg-white py-2.5 text-sm font-bold text-[#de2203] no-underline transition-all hover:bg-[#de2203] hover:text-white"
+                        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#de2203] bg-white py-2.5 text-sm font-bold text-[#de2203] no-underline transition-all hover:bg-[#de2203] "
                     >
                         View Details
                         <FontAwesomeIcon icon={faArrowRight} className="text-xs transition-transform group-hover:translate-x-1" />

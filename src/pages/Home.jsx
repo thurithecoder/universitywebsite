@@ -187,8 +187,7 @@ function Homepage() {
                     </div>
                 </div>
             </section>
-            <section className="bg-white py-24">
-
+            <section className="bg-white py-24">  
                 <div className="max-w-4xl mx-auto text-center mb-10 px-6">
                     <span className="inline-block px-4 py-2 rounded-full bg-red-50 text-[#de2203] font-medium text-sm mb-4">
                         About University
@@ -231,30 +230,6 @@ function Homepage() {
 
 
                 <div className="mx-auto mt-14 max-w-6xl px-6">
-
-                    <div className="grid gap-8 md:grid-cols-2">
-
-                        {universityInfo.values.map((value) => (
-                            <div
-                                key={value.title}
-                                className="group flex gap-6 rounded-[30px] border border-gray-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-                            >
-                                <div className="text-4xl transition-transform duration-300 group-hover:scale-125">
-                                    {value.icon}
-                                </div>
-
-                                <div>
-                                    <h3 className="mb-3 text-2xl font-bold text-gray-900">
-                                        {value.title}
-                                    </h3>
-
-                                    <p className="leading-relaxed text-gray-600">
-                                        {value.desc}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
 
                     <div className="mt-10 text-center">
                         <Link to="/about" className="group inline-flex items-center rounded-2xl bg-[#de2203] px-10 py-3 font-semibold text-white no-underline transition-all duration-300 hover:scale-105 hover:bg-[#a30000]">
@@ -303,7 +278,7 @@ function Homepage() {
                                     <div className="actions">
                                         <button>Read More</button>
                                         <button>Share</button>
-                                        <button className="bookmark ">Bookmark</button>
+                                        <button className="bookmark"> <a href="contact">Apply Now</a></button>
                                     </div>
 
                                 </div>

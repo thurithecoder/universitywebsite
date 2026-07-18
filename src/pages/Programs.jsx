@@ -42,7 +42,7 @@ export default function Programspage() {
     const [category, setCategory] = useState(searchParams.get('category') || 'All');
     const [level, setLevel] = useState('All');
     const [heroIndex, setHeroIndex] = useState(0);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -59,7 +59,11 @@ export default function Programspage() {
 
     useEffect(() => {
         setLoading(true);
-        const timer = setTimeout(() => setLoading(false), 220);
+
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 800); // جربي 800 أو 1000
+
         return () => clearTimeout(timer);
     }, [query, category, level]);
 
@@ -109,6 +113,7 @@ export default function Programspage() {
         setLevel('All');
         setSearchParams({});
     };
+  
 
     return (
         <div className="bg-white text-gray-900">
