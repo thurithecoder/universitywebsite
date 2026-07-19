@@ -3,29 +3,39 @@ import React from "react";
 import { motion } from "framer-motion";
 import { programs, universityInfo } from '../data/programs';
 import { Link, useNavigate } from 'react-router-dom';
+import missionImg from "../assets/mission1.jpg";
+import visionImg from "../assets/vision1.jpg";
 
+import engImg from "../assets/eng.jpg";
+import bussImg from "../assets/buss.jpg";
+import aiImg from "../assets/ai.jpg";
+import doctorsImg from "../assets/doctors.webp";
+import lawImg from "../assets/law.jpg";
+import artImg from "../assets/art.jpg";
+
+import heroImg from "../assets/back2.webp";
 export default function About() {
 
     const images = [
-        "../../src/assets/mission1.jpg",
-        "../../src/assets/vision1.jpg",
-
+        missionImg,
+        visionImg,
     ];
+
     const facultyImgaes = [
-        "../../src/assets/eng.jpg",
-        "../../src/assets/buss.jpg",
-        "../../src/assets/ai.jpg",
-        "../../src/assets/doctors.webp",
-        "../../src/assets/law.jpg",
-        "../../src/assets/art.jpg",
-    ]
+        engImg,
+        bussImg,
+        aiImg,
+        doctorsImg,
+        lawImg,
+        artImg,
+    ];
     return (
         <div className="bg-white text-gray-900">
 
 
             <section className=" text-white h-96 mt-20 ">
                 <div className="h-96 mx-auto px-4 text-center" style={{
-                    backgroundImage: "url('../../src/assets/back2.webp')",
+                    backgroundImage: `url(${heroImg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     // backgroundAttachment: "fixed",

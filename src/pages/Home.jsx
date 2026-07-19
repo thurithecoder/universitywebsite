@@ -94,7 +94,7 @@ function Homepage() {
 
                         {/* Left */}
                         <div className="col-lg-6">
-                            <span className="inline-flex items-center gap-2 text-xs font-medium text-white/80 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full mb-5">
+                            <span className="max-[418px]:hidden  inline-flex items-center gap-2 text-xs font-medium text-white/80 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full mb-5">
                                 <FontAwesomeIcon icon={faAward} /> Ranked Top University Malaysia 2025
                             </span>
                             <h1 className="text-white font-black leading-[1.1] mb-5" style={{ fontSize: 'clamp(2rem,5vw,3.4rem)' }}>
